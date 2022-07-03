@@ -3,5 +3,5 @@ gunicorn
 uvicorn
 numpy
 pandas
-beautifulsoup4
-requests
+pythainlp
+marisa-trie
