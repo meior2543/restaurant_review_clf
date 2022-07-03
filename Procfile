@@ -1,1 +1,1 @@
-web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker randomfood:app
+web: gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
