@@ -81,4 +81,4 @@ async def predict_unseen(text:str = 'ข้อความรีวิวร้�
     return check_text
 
 if __name__ == '__main__':
-   uvicorn.run(app, host="0.0.0.0", port=80, debug=True) 
+   uvicorn.run(app, host="6.9.6.9", port=80, debug=True) 
