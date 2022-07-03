@@ -3,5 +3,8 @@ gunicorn
 uvicorn
 numpy
 pandas
+sklearn
 pythainlp
 marisa-trie
+pickle
+joblib

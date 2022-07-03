@@ -5,13 +5,14 @@
 # !pip install -U marisa-trie
 
 from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
+
 import pandas as pd
 import uvicorn
 import numpy as np
 import re
 import pickle
 import joblib
-from fastapi.responses import PlainTextResponse
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import StratifiedKFold
