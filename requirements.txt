@@ -6,5 +6,4 @@ pandas
 sklearn
 pythainlp
 marisa-trie
-pickle
 joblib
