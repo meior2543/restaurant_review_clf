@@ -57,7 +57,7 @@ def preprocess(text):
   return text_tk
 
 def convert_to_cnt_vec(text):
-  load_cnt_vec = joblib.load("\restaurant_review_clf\count_vectorizer.pkl")
+  load_cnt_vec = joblib.load("count_vectorizer.pkl")
   text_count_vec = load_cnt_vec.transform(text)
   return text_count_vec
 
@@ -73,7 +73,7 @@ async def predict_unseen(text:str = 'ข้อความรีวิวร้�
     df_unseen_text = pd.DataFrame(columns=['review', 'service', 'atmosphere', 'cleanliness', 'price', 'food'])
     check_text = dict.fromkeys(class_names, 0)
     for c in class_names:
-        best_model_c = pickle.load(open(f"\restaurant_review_clf\LR_{c}.pkl", "rb"))
+        best_model_c = pickle.load(open(f"\LR\LR_{c}.pkl", "rb"))
         text_pred = best_model_c.predict(text_count_vec)[0]
         # check_text is already dict / json format
         check_text[c] = text_pred
