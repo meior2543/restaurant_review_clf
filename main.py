@@ -71,7 +71,7 @@ async def classify_review(text:str = 'ข้อความรีวิวร้
     # return text_count_vec
 
     # Loop for predict each class
-    df_unseen_text = pd.DataFrame(columns=['review', 'service', 'atmosphere', 'cleanliness', 'price', 'food'])
+    # df_unseen_text = pd.DataFrame(columns=['review', 'service', 'atmosphere', 'cleanliness', 'price', 'food'])
     check_text = dict.fromkeys(class_names, 0)
     for c in class_names:
         best_model_c = pickle.load(open(f"LR\LR_{c}.pkl", "rb"))
