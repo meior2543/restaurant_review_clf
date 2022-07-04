@@ -14,12 +14,12 @@ import numpy as np
 from numpy import load
 import re
 import pickle
-import joblib
+# import joblib
 
 from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.model_selection import StratifiedKFold
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import RandomizedSearchCV
+# from sklearn.model_selection import StratifiedKFold
+# from sklearn.linear_model import LogisticRegression
+# from sklearn.model_selection import RandomizedSearchCV
 
 import pythainlp
 from pythainlp import sent_tokenize, word_tokenize, Tokenizer
@@ -66,7 +66,6 @@ count_vectorizer = CountVectorizer(
                           preprocessor=identity_fun, #no extra preprocessor
                           token_pattern=None
                           )
-
 count_vectorizer = count_vectorizer.fit(X_train)
 
 def convert_to_cnt_vec(text):
@@ -97,17 +96,18 @@ def classify_review(text:str = 'ข้อความรีวิวร้าน
     text_count_vec = convert_to_cnt_vec(text_tk)
     # return text_count_vec
 
-    text_pred_s = lr_service.predict(text_count_vec)[0]
-    text_pred_a = lr_atmosphere.predict(text_count_vec)[0]
-    text_pred_c = lr_cleanliness.predict(text_count_vec)[0]
-    text_pred_p = lr_price.predict(text_count_vec)[0]
-    text_pred_f = lr_food.predict(text_count_vec)[0]
+    # text_pred_s = lr_service.predict(text_count_vec)[0]
+    # text_pred_a = lr_atmosphere.predict(text_count_vec)[0]
+    # text_pred_c = lr_cleanliness.predict(text_count_vec)[0]
+    # text_pred_p = lr_price.predict(text_count_vec)[0]
+    # text_pred_f = lr_food.predict(text_count_vec)[0]
     
-    return {'service': str(text_pred_s), 
-            'atmosphere': str(text_pred_a), 
-            'cleanliness': str(text_pred_c), 
-            'price': str(text_pred_p), 
-            'food(taste)': str(text_pred_f)}
+    # return {'service': str(text_pred_s), 
+    #         'atmosphere': str(text_pred_a), 
+    #         'cleanliness': str(text_pred_c), 
+    #         'price': str(text_pred_p), 
+    #         'food(taste)': str(text_pred_f)}
+    return text
 
 if __name__ == '__main__':
    uvicorn.run(app, host="0.0.0.0", port=8069, debug=True) 
