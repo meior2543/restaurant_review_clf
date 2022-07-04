@@ -81,11 +81,11 @@ global lr_cleanliness
 global lr_price
 global lr_food
 
-lr_service = pickle.load(open('LR\LR_service.pkl', 'rb'))
-lr_atmosphere = pickle.load(open('LR\LR_atmosphere.pkl', 'rb'))
-lr_cleanliness = pickle.load(open('LR\LR_cleanliness.pkl', 'rb'))
-lr_price = pickle.load(open('LR\LR_price.pkl', 'rb'))
-lr_food = pickle.load(open('LR\LR_food.pkl', 'rb'))
+# lr_service = pickle.load(open('LR\LR_service.pkl', 'rb'))
+# lr_atmosphere = pickle.load(open('LR\LR_atmosphere.pkl', 'rb'))
+# lr_cleanliness = pickle.load(open('LR\LR_cleanliness.pkl', 'rb'))
+# lr_price = pickle.load(open('LR\LR_price.pkl', 'rb'))
+# lr_food = pickle.load(open('LR\LR_food.pkl', 'rb'))
 
 """Real Service"""
 @app.get("/classify_review")
