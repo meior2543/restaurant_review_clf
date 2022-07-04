@@ -7,4 +7,3 @@ sklearn
 pythainlp
 marisa-trie
 joblib
-re
