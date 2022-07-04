@@ -61,8 +61,8 @@ def convert_to_cnt_vec(text):
   text_count_vec = load_cnt_vec.transform(text)
   return text_count_vec
 
-@app.get("/Classify_Review_Category")
-async def predict_unseen(text:str = 'ข้อความรีวิวร้านอาหาร'):
+@app.get("/classify_review")
+async def classify_review(text:str = 'ข้อความรีวิวร้านอาหาร'):
     class_names = ['service', 'atmosphere', 'cleanliness', 'price', 'food']
     clean_text = clean_unseen(text)
     text_tk = preprocess(clean_text)
