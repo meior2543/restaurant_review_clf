@@ -82,9 +82,9 @@ global lr_price
 global lr_food
 
 lr_service = pickle.load(open('LR\LR_service.pkl', 'rb'))
-lr_atmosphere = pickle.load(open('LR\LR_atmosphere.pkl', 'rb'))
-lr_cleanliness = pickle.load(open('LR\LR_cleanliness.pkl', 'rb'))
-lr_price = pickle.load(open('LR\LR_price.pkl', 'rb'))
+# lr_atmosphere = pickle.load(open('LR\LR_atmosphere.pkl', 'rb'))
+# lr_cleanliness = pickle.load(open('LR\LR_cleanliness.pkl', 'rb'))
+# lr_price = pickle.load(open('LR\LR_price.pkl', 'rb'))
 lr_food = pickle.load(open('LR\LR_food.pkl', 'rb'))
 
 """Real Service"""
@@ -103,9 +103,9 @@ def classify_review(text:str = 'ข้อความรีวิวร้าน
     text_pred_f = lr_food.predict(text_count_vec)[0]
     
     return {'service': str(text_pred_s), 
-            'atmosphere': str(text_pred_a), 
-            'cleanliness': str(text_pred_c), 
-            'price': str(text_pred_p), 
+            # 'atmosphere': str(text_pred_a), 
+            # 'cleanliness': str(text_pred_c), 
+            # 'price': str(text_pred_p), 
             'food(taste)': str(text_pred_f)}
     return text
 
