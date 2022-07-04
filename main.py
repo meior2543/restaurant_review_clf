@@ -97,9 +97,9 @@ def classify_review(text:str = 'ข้อความรีวิวร้าน
     # return text_count_vec
 
     text_pred_s = lr_service.predict(text_count_vec)[0]
-    text_pred_a = lr_atmosphere.predict(text_count_vec)[0]
-    text_pred_c = lr_cleanliness.predict(text_count_vec)[0]
-    text_pred_p = lr_price.predict(text_count_vec)[0]
+    # text_pred_a = lr_atmosphere.predict(text_count_vec)[0]
+    # text_pred_c = lr_cleanliness.predict(text_count_vec)[0]
+    # text_pred_p = lr_price.predict(text_count_vec)[0]
     text_pred_f = lr_food.predict(text_count_vec)[0]
     
     return {'service': str(text_pred_s), 
