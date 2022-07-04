@@ -61,6 +61,7 @@ def convert_to_cnt_vec(text):
   text_count_vec = load_cnt_vec.transform(text)
   return text_count_vec
 
+"""Real Service"""
 @app.get("/classify_review")
 async def classify_review(text:str = 'ข้อความรีวิวร้านอาหาร'):
     class_names = ['service', 'atmosphere', 'cleanliness', 'price', 'food']
@@ -79,6 +80,29 @@ async def classify_review(text:str = 'ข้อความรีวิวร้
         check_text[c] = text_pred
 
     return check_text
+
+
+"""Debugging"""
+# def classify_review(text:str = 'ข้อความรีวิวร้านอาหาร'):
+#     class_names = ['service', 'atmosphere', 'cleanliness', 'price', 'food']
+#     clean_text = clean_unseen(text)
+#     text_tk = preprocess(clean_text)
+#     text_count_vec = convert_to_cnt_vec(text_tk)
+#     # return text_count_vec
+
+#     # Loop for predict each class
+#     df_unseen_text = pd.DataFrame(columns=['review', 'service', 'atmosphere', 'cleanliness', 'price', 'food'])
+#     check_text = dict.fromkeys(class_names, 0)
+#     for c in class_names:
+#         best_model_c = pickle.load(open(f"LR\LR_{c}.pkl", "rb"))
+#         text_pred = best_model_c.predict(text_count_vec)[0]
+#         # check_text is already dict / json format
+#         check_text[c] = text_pred
+
+#     return check_text
+
+
+# print(classify_review('ร้านนี้ไม่ค่อยสะอาดเท่าไหร่ รสชาติอาหารเมื่อเทียบกับราคาถือว่าพอใช้ได้'))
 
 if __name__ == '__main__':
    uvicorn.run(app, host="0.0.0.0", port=8069, debug=True) 
