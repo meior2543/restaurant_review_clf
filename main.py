@@ -4,12 +4,14 @@
 # !pip install pythainlp
 # !pip install -U marisa-trie
 
+from glob import glob
 from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
 
 import pandas as pd
 import uvicorn
 import numpy as np
+from numpy import load
 import re
 import pickle
 import joblib
@@ -56,53 +58,56 @@ def preprocess(text):
   text_tk.append(r_rm)
   return text_tk
 
+X_train = load('X_train.npy', allow_pickle=True)
+global count_vectorizer
+count_vectorizer = CountVectorizer(
+                          analyzer = 'word', #this is default
+                          tokenizer=identity_fun, #does no extra tokenizing
+                          preprocessor=identity_fun, #no extra preprocessor
+                          token_pattern=None
+                          )
+
+count_vectorizer = count_vectorizer.fit(X_train)
+
 def convert_to_cnt_vec(text):
-  load_cnt_vec = joblib.load("count_vectorizer.pkl")
-  text_count_vec = load_cnt_vec.transform(text)
+  # load_cnt_vec = joblib.load("count_vectorizer.pkl")
+  text_count_vec = count_vectorizer.transform(text)
+  # print(text_count_vec)
   return text_count_vec
+
+
+global lr_service
+global lr_atmosphere
+global lr_cleanliness
+global lr_price
+global lr_food
+
+lr_service = pickle.load(open('LR\LR_service.pkl', 'rb'))
+lr_atmosphere = pickle.load(open('LR\LR_atmosphere.pkl', 'rb'))
+lr_cleanliness = pickle.load(open('LR\LR_cleanliness.pkl', 'rb'))
+lr_price = pickle.load(open('LR\LR_price.pkl', 'rb'))
+lr_food = pickle.load(open('LR\LR_food.pkl', 'rb'))
 
 """Real Service"""
 @app.get("/classify_review")
-async def classify_review(text:str = 'ข้อความรีวิวร้านอาหาร'):
-    class_names = ['service', 'atmosphere', 'cleanliness', 'price', 'food']
+def classify_review(text:str = 'ข้อความรีวิวร้านอาหาร'):
+    # class_names = ['service', 'atmosphere', 'cleanliness', 'price', 'food']
     clean_text = clean_unseen(text)
     text_tk = preprocess(clean_text)
     text_count_vec = convert_to_cnt_vec(text_tk)
     # return text_count_vec
 
-    # Loop for predict each class
-    # df_unseen_text = pd.DataFrame(columns=['review', 'service', 'atmosphere', 'cleanliness', 'price', 'food'])
-    check_text = dict.fromkeys(class_names, 0)
-    for c in class_names:
-        best_model_c = pickle.load(open(f"LR\LR_{c}.pkl", "rb"))
-        text_pred = best_model_c.predict(text_count_vec)[0]
-        # check_text is already dict / json format
-        check_text[c] = text_pred
-
-    return check_text
-
-
-"""Debugging"""
-# def classify_review(text:str = 'ข้อความรีวิวร้านอาหาร'):
-#     class_names = ['service', 'atmosphere', 'cleanliness', 'price', 'food']
-#     clean_text = clean_unseen(text)
-#     text_tk = preprocess(clean_text)
-#     text_count_vec = convert_to_cnt_vec(text_tk)
-#     # return text_count_vec
-
-#     # Loop for predict each class
-#     df_unseen_text = pd.DataFrame(columns=['review', 'service', 'atmosphere', 'cleanliness', 'price', 'food'])
-#     check_text = dict.fromkeys(class_names, 0)
-#     for c in class_names:
-#         best_model_c = pickle.load(open(f"LR\LR_{c}.pkl", "rb"))
-#         text_pred = best_model_c.predict(text_count_vec)[0]
-#         # check_text is already dict / json format
-#         check_text[c] = text_pred
-
-#     return check_text
-
-
-# print(classify_review('ร้านนี้ไม่ค่อยสะอาดเท่าไหร่ รสชาติอาหารเมื่อเทียบกับราคาถือว่าพอใช้ได้'))
+    text_pred_s = lr_service.predict(text_count_vec)[0]
+    text_pred_a = lr_atmosphere.predict(text_count_vec)[0]
+    text_pred_c = lr_cleanliness.predict(text_count_vec)[0]
+    text_pred_p = lr_price.predict(text_count_vec)[0]
+    text_pred_f = lr_food.predict(text_count_vec)[0]
+    
+    return {'service': str(text_pred_s), 
+            'atmosphere': str(text_pred_a), 
+            'cleanliness': str(text_pred_c), 
+            'price': str(text_pred_p), 
+            'food(taste)': str(text_pred_f)}
 
 if __name__ == '__main__':
    uvicorn.run(app, host="0.0.0.0", port=8069, debug=True) 
