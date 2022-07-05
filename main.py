@@ -4,7 +4,7 @@
 # !pip install pythainlp
 # !pip install -U marisa-trie
 
-from glob import glob
+# from glob import glob
 from fastapi import FastAPI
 # from fastapi.responses import PlainTextResponse
 
@@ -22,7 +22,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 # from sklearn.model_selection import RandomizedSearchCV
 
 import pythainlp
-from pythainlp import sent_tokenize, word_tokenize
+from pythainlp import word_tokenize
 # from pythainlp.corpus.common import thai_words
 from pythainlp.corpus import thai_stopwords
 # from marisa_trie import Trie
@@ -109,7 +109,7 @@ def classify_review(text:str = 'ข้อความรีวิวร้าน
             # 'price': str(text_pred_p), 
             # 'food(taste)': str(text_pred_f)
             # }
-    return str(text_tk)
+    return str(text_count_vec.toarray())
     # return text
 
 if __name__ == '__main__':
