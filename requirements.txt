@@ -5,5 +5,5 @@ numpy
 pandas
 sklearn
 pythainlp
-marisa-trie
+# marisa-trie
 joblib

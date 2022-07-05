@@ -22,10 +22,10 @@ from sklearn.feature_extraction.text import CountVectorizer
 # from sklearn.model_selection import RandomizedSearchCV
 
 import pythainlp
-from pythainlp import sent_tokenize, word_tokenize, Tokenizer
-from pythainlp.corpus.common import thai_words
+from pythainlp import sent_tokenize, word_tokenize
+# from pythainlp.corpus.common import thai_words
 from pythainlp.corpus import thai_stopwords
-from marisa_trie import Trie
+# from marisa_trie import Trie
 
 app = FastAPI()
 
