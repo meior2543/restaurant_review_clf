@@ -96,7 +96,7 @@ def classify_review(text:str = 'ข้อความรีวิวร้าน
     text_count_vec = convert_to_cnt_vec(text_tk)
     # return text_count_vec
 
-    text_pred_s = lr_service.predict(text_count_vec)[0]
+    text_pred_s = lr_service.predict(text_count_vec)
     # text_pred_a = lr_atmosphere.predict(text_count_vec)[0]
     # text_pred_c = lr_cleanliness.predict(text_count_vec)[0]
     # text_pred_p = lr_price.predict(text_count_vec)[0]
@@ -113,4 +113,4 @@ def classify_review(text:str = 'ข้อความรีวิวร้าน
     # return text
 
 if __name__ == '__main__':
-   uvicorn.run(app, host="0.0.0.0", port=8069, debug=True) 
+   uvicorn.run(app, host="0.0.0.0", port=8669, debug=True) 
