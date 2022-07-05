@@ -109,7 +109,7 @@ def classify_review(text:str = 'ข้อความรีวิวร้าน
             # 'price': str(text_pred_p), 
             # 'food(taste)': str(text_pred_f)
             # }
-    return text_count_vec
+    return str(text_count_vec)
     # return text
 
 if __name__ == '__main__':
